@@ -39,14 +39,14 @@ void Player::swapWeapon() {
     if (inventory.empty()) return;
 
     if (inventory.size() < 2) {
-        std::cout << "you only have one weapon!" << std::endl;
+        std::cout << "you only have one weapon" << std::endl;
         return;
     }
 
     activeWeaponIndex = (activeWeaponIndex + 1) % (int)inventory.size();
     activeWeapon = inventory[activeWeaponIndex];
 
-    std::cout << "you readied your new weapon!" << std::endl;
+    std::cout << "you readied your new weapon" << std::endl;
 }
 
 Room* Player::getCurrentRoom() {
@@ -62,16 +62,23 @@ Weapon* Player::getActiveWeapon() {
 }
 
 Weapon* Player::fireWeapon(int direction) {
+    // safety check ensuring a weapon is actually equipped
     if (activeWeapon == nullptr) {
-        std::cout << "you have no weapon equipped!" << std::endl;
+        // I don't think this should ever happen but it might be nice to handle?
+        std::cout << "you have no weapon equipped" << std::endl;
         return nullptr;
     }
 
+    // since we want to integrate with a World resolveFire method we check ammo here
+    // only return a valid Weapon pointer if the weapon is actually capable of firing
+    // if ammo > 0, we fire and pass the weapon back to main loop to be given to world.resolveFire()
     if (activeWeapon->getAmmo() > 0) {
         activeWeapon->fire(direction);
         return activeWeapon;
     } else {
-        std::cout << "out of ammo!" << std::endl;
+
+        //return nullptr so world resolve doesn't trigger
+        std::cout << "out of ammo" << std::endl;
         return nullptr;
     }
 }

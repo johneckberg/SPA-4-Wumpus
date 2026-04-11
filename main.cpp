@@ -12,7 +12,7 @@ void printStart() {
     std::cout << "You've been hunting this whale your entire life, and today you'll finally catch them.\n" << std::endl;
     std::cout << "Your starting weapon is a harpoon gun which shoots in a straight line." << std::endl;
     std::cout << "While on the sea there are also other weapons available such as the cannon." << std::endl;
-    std::cout << "The cannon has less range than the harpoon gun, but has an explosive AOE which can damage multiple tiles!" << std::endl;
+    std::cout << "The cannon has less range than the harpoon gun, but has an explosive impact which can damage multiple tiles!" << std::endl;
     std::cout << "You have five harpoons and five cannonballs, although you can find more on your travels.\n" << std::endl;
     std::cout << "Although you are close to catching this whale, there are still hazards upon the sea you must be weary of." << std::endl;
     std::cout << "One such hazard would be the sea siren, which when you listen upon her song you end up in a random tile!" << std::endl;
@@ -45,7 +45,7 @@ int main() {
 
     char choice;
     while (true) { // change to world.isActive() when world is implemented
-        std::cout << "Actions: (N)orth, (S)outh, (E)ast, (W)est, (F)ire, (C)hange Weapon, (H)elp, (Q)uit: ";
+        std::cout << "\nActions: (N)orth, (S)outh, (E)ast, (W)est, (F)ire, (C)hange Weapon, (H)elp, (Q)uit:" << std::endl;
         std::cin >> choice;
         choice = std::toupper(choice);
 
@@ -87,6 +87,9 @@ int main() {
 
             default:
                 std::cout << "Invalid action! Press (H) for help" << std::endl;
+                //clear input buffer to prevent extra chars from being read
+                std::cin.clear();
+                std::cin.ignore(10000, '\n');
                 break;
         }
 
