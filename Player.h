@@ -8,8 +8,7 @@
 #include "Room.h"
 #include "Weapon.h"
 #include <vector>
-
-class World; // forward declaration
+#include "World.h"
 
 class Player {
 public:

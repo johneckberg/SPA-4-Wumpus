@@ -3,4 +3,9 @@ project(SPA-4-Wumpus)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(SPA-4-Wumpus main.cpp Player.cpp Room.cpp Weapon.cpp)
+add_executable(SPA-4-Wumpus main.cpp Player.cpp Room.cpp Weapon.cpp
+        World.cpp
+        World.h
+        GameEntity.cpp
+        GameEntity.h
+)

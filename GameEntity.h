@@ -10,6 +10,8 @@ public:
     GameEntity(std::string name);
     virtual std::string getWarning() = 0;
     virtual void onEnter() = 0;
+    virtual ~GameEntity() = 0;
+    virtual std::string describe() = 0;
 };
 
 #endif // game_entity_h

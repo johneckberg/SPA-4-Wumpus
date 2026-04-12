@@ -42,3 +42,7 @@ void Cannon::fire(int direction) {
 std::string Cannon::getName() const {
     return "Heavy Cannon";
 }
+
+std::string Weapon::describe() {
+    return "There's something floating in the water here!";
+}
