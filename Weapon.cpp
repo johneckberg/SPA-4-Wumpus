@@ -5,9 +5,17 @@
 #include "Weapon.h"
 #include <iostream>
 
-Weapon::Weapon(int startAmmo, int startRange) : ammo(startAmmo), range(startRange) {}
+Weapon::Weapon(int startAmmo, int startRange) : GameEntity("Weapon"), ammo(startAmmo), range(startRange) {}
 
 Weapon::~Weapon() {}
+
+std::string Weapon::getWarning() {
+    return "";
+}
+
+void Weapon::onEnter() {
+    // DO nothing
+}
 
 int Weapon::getAmmo() const {
     return ammo;

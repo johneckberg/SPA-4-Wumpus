@@ -22,6 +22,8 @@ public:
     virtual std::string getName() const = 0;
 
     std::string describe() override;
+    std::string getWarning() override;
+    void onEnter() override;
 
 };
 

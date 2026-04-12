@@ -75,7 +75,7 @@ int main() {
             case 'C':
                 player.swapWeapon();
                 if (player.getActiveWeapon()) {
-                    std::cout << "Switched to: " << player.getActiveWeapon()->getName() << "**" << std::endl;
+                    std::cout << "Switched to: " << player.getActiveWeapon()->getName() << std::endl;
                 }
                 else {
                     std::cout << "No weapons in inventory" << std::endl;

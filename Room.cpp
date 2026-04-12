@@ -51,7 +51,7 @@ Room *Room::getNeighbor(int direction) {
     return nullptr;
 }
 
-Room::Room() : contents(nullptr), adjacentRooms(4, nullptr){
+Room::Room() : contents(nullptr), adjacentRooms(4, nullptr), startingRoom(false){
 
 }
 
