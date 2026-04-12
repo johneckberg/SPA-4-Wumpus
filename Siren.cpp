@@ -20,5 +20,5 @@ void Siren::movePlayer(Player player) {
 }
 
 std::string Siren::getWarning() {
-    return "You hear an enticing song floating across the waves."
+    return "You hear an enticing song floating across the waves.";
 }

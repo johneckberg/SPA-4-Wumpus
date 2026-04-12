@@ -1,4 +1,5 @@
 #include "GameEntity.h"
+#include "Player.h"
 
 #if !defined(hazard_h)
 #define hazard_h
@@ -41,6 +42,6 @@ public:
     virtual void triggerEffect(Player player);
     virtual std::string getWarning();
     void killPlayer();
-}
+};
 
 #endif // hazard_h

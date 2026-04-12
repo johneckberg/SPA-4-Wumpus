@@ -14,7 +14,7 @@ void Whale::triggerEffect(Player player) {
 
 void Whale::killPlayer() {
     std::cout << "You got to close to the whale and it sunk your ship." << std::endl;
-    game.setGameInactive();
+    game.setInactive();
 }
 
 std::string Whale::getWarning() {

@@ -5,7 +5,7 @@ Whirlpool::Whirlpool(World game) : Hazard(true, "Whirlpool") {
 }
 
 void Whirlpool::triggerEffect(Player player) {
-    endGame()
+    endGame();
 }
 
 std::string Whirlpool::getWarning() {
@@ -13,5 +13,5 @@ std::string Whirlpool::getWarning() {
 }
 
 void Whirlpool::endGame() {
-    game.setGameInactive();
+    game.setInactive();
 }
