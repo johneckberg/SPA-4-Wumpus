@@ -85,6 +85,11 @@ int main() {
             case 'H':
                 printHelp();
                 break;
+            case 'M':
+                world.toggleDebug();
+                std::cout << "Debug mode is now " << (world.getDebug() ? "ON" : "OFF") << std::endl;
+                world.printMap(player.getCurrentRoom());
+                break;
 
             default:
                 std::cout << "Invalid action! Press (H) for help" << std::endl;
@@ -92,6 +97,11 @@ int main() {
                 std::cin.clear();
                 std::cin.ignore(10000, '\n');
                 break;
+        }
+
+        // print debug map after moving or action
+        if (choice != 'M' && choice != 'H' && choice != 'Q') {
+            world.printMap(player.getCurrentRoom());
         }
 
         // world.resolveState(player);

@@ -4,7 +4,7 @@
 #if !defined(hazard_h)
 #define hazard_h
 
-class Hazard : private GameEntity {
+class Hazard : public GameEntity {
 private:
     int isDeadly;
 public:
@@ -13,7 +13,7 @@ public:
     virtual std::string getWarning() = 0;
 };
 
-class Siren : private Hazard {
+class Siren : public Hazard {
 private:
     int flightDistance;
 public:
@@ -21,27 +21,33 @@ public:
     virtual void triggerEffect(Player player);
     virtual std::string getWarning();
     void movePlayer(Player player);
+    std::string describe() override;
+    void onEnter() override;
 };
 
-class Whirlpool : private Hazard {
+class Whirlpool : public Hazard {
 private:
-    World game;
+    World* game;
 public:
-    Whirlpool(World game);
+    Whirlpool(World* game);
     virtual void triggerEffect(Player player);
     virtual std::string getWarning();
     void endGame();
+    std::string describe() override;
+    void onEnter() override;
 };
 
-class Whale : private Hazard {
+class Whale : public Hazard {
 private:
     bool isAwake;
-    World game;
+    World* game;
 public:
-    Whale(World game);
+    Whale(World* game);
     virtual void triggerEffect(Player player);
     virtual std::string getWarning();
     void killPlayer();
+    std::string describe() override;
+    void onEnter() override;
 };
 
 #endif // hazard_h

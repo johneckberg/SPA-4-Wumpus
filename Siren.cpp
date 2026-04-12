@@ -22,3 +22,11 @@ void Siren::movePlayer(Player player) {
 std::string Siren::getWarning() {
     return "You hear an enticing song floating across the waves.";
 }
+
+std::string Siren::describe() {
+    return "siren";
+}
+
+void Siren::onEnter() {
+    // DO nothing
+}

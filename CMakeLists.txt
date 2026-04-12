@@ -8,4 +8,9 @@ add_executable(SPA-4-Wumpus main.cpp Player.cpp Room.cpp Weapon.cpp
         World.h
         GameEntity.cpp
         GameEntity.h
+        Hazard.cpp
+        Hazard.h
+        Siren.cpp
+        Whirlpool.cpp
+        Whale.cpp
 )

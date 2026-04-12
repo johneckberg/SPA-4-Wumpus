@@ -10,6 +10,7 @@
 class World {
 private:
     bool isGameActive = false;
+    bool isDebugMode = false;
     std::vector<Room*> rooms;
 
 
@@ -20,6 +21,9 @@ public:
     ~World();
     void fillRooms();
     Room* getStartingRoom();
+    void toggleDebug();
+    bool getDebug() const;
+    void printMap(Room* currentRoom);
 };
 
 

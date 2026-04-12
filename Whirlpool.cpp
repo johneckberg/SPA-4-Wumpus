@@ -1,6 +1,6 @@
 #include "Hazard.h"
 
-Whirlpool::Whirlpool(World game) : Hazard(true, "Whirlpool") {
+Whirlpool::Whirlpool(World* game) : Hazard(true, "Whirlpool") {
     this->game = game;
 }
 
@@ -13,5 +13,13 @@ std::string Whirlpool::getWarning() {
 }
 
 void Whirlpool::endGame() {
-    game.setInactive();
+    game->setInactive();
+}
+
+std::string Whirlpool::describe() {
+    return "whirlpool";
+}
+
+void Whirlpool::onEnter() {
+    // DO nothing
 }

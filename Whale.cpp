@@ -3,7 +3,7 @@
 
 #include "Hazard.h"
 
-Whale::Whale(World game) : Hazard(true, "Moby Dick") {
+Whale::Whale(World* game) : Hazard(true, "Moby Dick") {
     this->game = game;
     this->isAwake = false;
 }
@@ -14,9 +14,17 @@ void Whale::triggerEffect(Player player) {
 
 void Whale::killPlayer() {
     std::cout << "You got to close to the whale and it sunk your ship." << std::endl;
-    game.setInactive();
+    game->setInactive();
 }
 
 std::string Whale::getWarning() {
     return "You see a white shape under the water near your boat.";
+}
+
+std::string Whale::describe() {
+    return "whale";
+}
+
+void Whale::onEnter() {
+    // DO nothing
 }

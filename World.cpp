@@ -3,8 +3,10 @@
 //
 
 #include "World.h"
+#include "Hazard.h"
 
 #include <ctime>
+#include <iostream>
 
 World::World() {
     isGameActive = true;
@@ -57,9 +59,64 @@ bool World::isActive() {
     return isGameActive;
 }
 
-//only done when quitting
 void World::setInactive() {
     isGameActive = false;
+}
+
+bool World::getDebug() const {
+    return isDebugMode;
+}
+
+void World::toggleDebug() {
+    isDebugMode = !isDebugMode;
+}
+
+void World::printMap(Room* currentRoom) {
+    //only print if debug mode is active
+    if (!isDebugMode) return;
+    
+    std::cout << "\nDEBUG MAP" << std::endl;
+    //loop through all 25 rooms to print the grid
+    for (int i = 0; i < 25; i++) {
+        Room* r = rooms[i];
+        //check if this is the room the player is in
+        if (r == currentRoom) {
+            std::cout << "+ ";
+        } else if (r->isOccupied()) {
+            //if the room has something, find out what symbol to print based on description
+            GameEntity* e = r->getContents();
+            if (e != nullptr) {
+                std::string desc = e->describe();
+                // weapons or cannons
+                if (desc.find("floating") != std::string::npos) {
+                    std::cout << "? ";
+                // sirens
+                } else if (desc.find("siren") != std::string::npos) {
+                    std::cout << "! ";
+                // whirlpools
+                } else if (desc.find("whirlpool") != std::string::npos) {
+                    std::cout << "@ ";
+                // ammo caches
+                } else if (desc.find("ammo") != std::string::npos) {
+                    std::cout << "> ";
+                // whale
+                } else if (desc.find("whale") != std::string::npos) {
+                    std::cout << "# ";
+                //fallback just in case THIS INDICATES ERROR
+                } else {
+                    std::cout << "X "; 
+                }
+            }
+        } else {
+            // empty room
+            std::cout << ". ";
+        }
+
+        // print a new line every 5 rooms to make the 5x5 grid
+        if (i % 5 == 4) {
+            std::cout << std::endl;
+        }
+    }
 }
 
 World::~World() {
@@ -84,9 +141,17 @@ void World::fillRooms() {
 
             if (chance < 20) {
                 //add hazard (?) 20%
+                int hazardType = rand() % 3;
+                if (hazardType == 0) {
+                    r->addEntity(new Siren());
+                } else if (hazardType == 1) {
+                    r->addEntity(new Whirlpool(this));
+                } else {
+                    r->addEntity(new Whale(this));
+                }
             } else if (chance < 40) {
                 //20%
-                r -> addEntity(new Cannon); //add harpoon to room tile
+                r -> addEntity(new Cannon); //add cannon to room tile
             }
             //60% it will be empty
         }
