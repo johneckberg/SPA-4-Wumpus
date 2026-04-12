@@ -5,6 +5,7 @@
 #include <string>
 #include "Player.h"
 #include "Weapon.h"
+#include "World.h"
 
 void printStart() {
     std::cout << "Welcome to: Hunting the great whale!\n" << std::endl;
@@ -37,14 +38,14 @@ void printHelp() {
 }
 
 int main() {
-    // World world;
-    Player player = Player(nullptr, nullptr); // eventually pass world.getStartRoom() and &world
+    World world;
+    Player player = Player(world.getStartingRoom(), &world); // eventually pass world.getStartRoom() and &world
 
     printStart();
     printHelp(); 
 
     char choice;
-    while (true) { // change to world.isActive() when world is implemented
+    while (world.isActive()) { // change to world.isActive() when world is implemented
         std::cout << "\nActions: (N)orth, (S)outh, (E)ast, (W)est, (F)ire, (C)hange Weapon, (H)elp, (Q)uit:" << std::endl;
         std::cin >> choice;
         choice = std::toupper(choice);

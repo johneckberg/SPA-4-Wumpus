@@ -7,7 +7,9 @@
 
 #include <string>
 
-class Weapon {
+#include "GameEntity.h"
+
+class Weapon : public GameEntity {
 protected:
     int ammo;
     int range;
@@ -18,6 +20,9 @@ public:
     int getAmmo() const;
     void decrementAmmo();
     virtual std::string getName() const = 0;
+
+    std::string describe() override;
+
 };
 
 class Harpoon : public Weapon {

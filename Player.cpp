@@ -23,14 +23,19 @@ void Player::moveRoom(int direction) {
     if (currentRoom == nullptr) return;
     
     // attempt to get the neighbor room and move
-    // Room* nextRoom = currentRoom->getNeighbor(direction);
-    //
-    // if (nextRoom != nullptr) {
-    //     currentRoom = nextRoom;
-    //     std::cout << "you moved to a new unchartered area." << std::endl;
-    // } else {
-    //     std::cout << "the sea is too rough that way. you cannot go there." << std::endl;
-    // }
+    Room* nextRoom = currentRoom->getNeighbor(direction);
+
+
+    //MAYBE: use this as a way to check what to do in the room
+    //we already have the room so we can easily get the contents of the room
+    //then just check what the contents are, and based on that do the correct action
+    //like whirlpools end the game, sirens teleport you, etc etc
+    if (nextRoom != nullptr) {
+        currentRoom = nextRoom;
+        std::cout << "you moved to a new unchartered area." << std::endl;
+    } else {
+        std::cout << "the sea is too rough that way. you cannot go there." << std::endl;
+    }
     
     std::cout << "moving direction: " << direction << std::endl;
 }
