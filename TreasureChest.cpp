@@ -25,5 +25,5 @@ std::string TreasureChest::getWarning() {
 }
 
 std::string TreasureChest::describe() {
-    return TreasureChest::getWarning();
+    return "chest";
 }

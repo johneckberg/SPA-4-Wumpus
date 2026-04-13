@@ -104,6 +104,9 @@ void World::printMap(Room* currentRoom) {
                 // whale
                 } else if (desc.find("whale") != std::string::npos) {
                     std::cout << "# ";
+                // treasure chest
+                } else if (desc.find("chest") != std::string::npos) {
+                    std::cout << "* ";
                 //fallback just in case THIS INDICATES ERROR
                 } else {
                     std::cout << "X "; 
@@ -215,9 +218,12 @@ void World::resolveState(Player& player) {
     if (currentRoom->isOccupied()) {
         GameEntity* e = currentRoom->getContents();
         Hazard* hazard = dynamic_cast<Hazard*>(e); // see if its a hazard
+        TreasureChest* chest = dynamic_cast<TreasureChest*>(e); // check for treasure chest
 
         if (hazard) {
             hazard->triggerEffect(player);
+        } else if (chest) {
+            chest->onEnter(player);
         } else {
             // it might be a weapon
             Weapon* w = dynamic_cast<Weapon*>(e);

@@ -33,8 +33,8 @@ void printHelp() {
 
     std::cout << "\n    Map Legend    " << std::endl;
     std::cout << ". = Sea room | + = Your Ship | > = Ammo Cache" << std::endl;
-    std::cout << "! = Siren    | @ = Whirlpool  | ? = Cannon" << std::endl;
-    std::cout << "# = The Great Whale" << std::endl;
+    std::cout << "! = Siren    | @ = Whirlpool | ? = Cannon" << std::endl;
+    std::cout << "# = The Great Whale          | * = Treasure" << std::endl;
 }
 
 int main() {
