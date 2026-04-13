@@ -13,4 +13,6 @@ add_executable(SPA-4-Wumpus main.cpp Player.cpp Room.cpp Weapon.cpp
         Siren.cpp
         Whirlpool.cpp
         Whale.cpp
+        TreasureChest.h
+        TreasureChest.cpp
 )
