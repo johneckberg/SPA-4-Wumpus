@@ -72,6 +72,10 @@ void World::toggleDebug() {
     isDebugMode = !isDebugMode;
 }
 
+/**
+ * This function prints the current map of the world for debugging purposes
+ * @param currentRoom room the player is currently in
+ */
 void World::printMap(Room* currentRoom) {
     //only print if debug mode is active
     if (!isDebugMode) return;
@@ -126,6 +130,9 @@ World::~World() {
     }
 }
 
+/**
+ * This function dynamically fills all the rooms at game start
+ */
 void World::fillRooms() {
 
     //randomly fills the rooms with items
@@ -181,6 +188,11 @@ void World::fillRooms() {
     }
 }
 
+/**
+ * This function prints the warnings for the room the player is currently in, along with warnings
+ * for the adjecent rooms
+ * @param currentRoom The room the player is currently in
+ */
 void World::printWarnings(Room* currentRoom) {
     for (int i = 0; i < 4; i++) {
         Room* neighbor = currentRoom->getNeighbor(i);
@@ -196,6 +208,11 @@ void World::printWarnings(Room* currentRoom) {
     }
 }
 
+/**
+ * This function handles the main logic after the user/player makes an action
+ * it checks if the player has hit a hazard or found a weapon/treasure
+ * @param player the player object
+ */
 void World::resolveState(Player& player) {
     if (!isGameActive) {
         return;
@@ -229,7 +246,11 @@ void World::resolveState(Player& player) {
     }
 }
 
-Room *World::getStartingRoom() {
+/**
+ * This function returns a pointer to the room the player starts in
+ * @return a pointer to the starting room object
+ */
+Room* World::getStartingRoom() {
     srand(time(NULL));
     int room = rand() % 25;
 
@@ -239,24 +260,73 @@ Room *World::getStartingRoom() {
 
 }
 
+/**
+ * This functioj handles the game logic required when the player/user fires their weapon
+ * @param dir Direction of fire
+ * @param weapon Weapon that was fired
+ * @param currentRoom room the user is firing from
+ */
 void World::resolveFire(int dir, Weapon* weapon, Room* currentRoom) {
     if (!weapon || !currentRoom) return;
 
     std::cout << "You fired your " << weapon->getName() << "!" << std::endl;
-    // logic to trace room neighbors and destroy hit targets
     Room* target = currentRoom->getNeighbor(dir);
-    if (target && target->isOccupied()) {
+    
+    if (!target) {
+        std::cout << "Your shot missed and hit the edge of the world." << std::endl;
+        return;
+    }
+
+    bool hitSomething = false;
+    if (target->isOccupied()) {
         GameEntity* targetEntity = target->getContents();
         if (targetEntity) {
-            std::cout << "You hit " << targetEntity->describe() << "!" << std::endl;
+            std::cout << "You hit: " << targetEntity->getName() << "!" << std::endl;
             if (targetEntity->describe().find("whale") != std::string::npos) {
                 std::cout << "You defeated the Great Whale! You win!" << std::endl;
                 isGameActive = false;
             }
             delete targetEntity;
             target->clearContents();
+            hitSomething = true;
         }
-    } else {
+    } 
+    
+    if (!hitSomething) {
         std::cout << "Your shot splashed harmlessly into the water." << std::endl;
+    }
+
+    // check if the weapon fired was a Cannon to apply splash damage
+    Cannon* cannon = dynamic_cast<Cannon*>(weapon);
+    if (cannon) {
+        resolveCannonSplash(target, currentRoom);
+    }
+}
+
+/**
+ * Resolves splash damage when a cannon is fired
+ * @param target the primary room that was hit
+ * @param currentRoom the room the player fired from (to prevent self-damage)
+ */
+void World::resolveCannonSplash(Room* target, Room* currentRoom) {
+    if (!target) return;
+    
+    std::cout << "The cannonball explodes, damaging adjacent tiles!" << std::endl;
+    for (int i = 0; i < 4; i++) {
+        Room* splashTarget = target->getNeighbor(i);
+        
+        // protect the players room from taking splash damage
+        if (splashTarget && splashTarget != currentRoom && splashTarget->isOccupied()) {
+            GameEntity* splashEntity = splashTarget->getContents();
+            if (splashEntity) {
+                std::cout << "Splash damage caught: " << splashEntity->getName() << "!" << std::endl;
+                if (splashEntity->describe().find("whale") != std::string::npos) {
+                    std::cout << "You defeated the Great Whale with splash damage! You win!" << std::endl;
+                    isGameActive = false;
+                }
+                delete splashEntity;
+                splashTarget->clearContents();
+            }
+        }
     }
 }

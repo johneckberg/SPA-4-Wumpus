@@ -8,6 +8,7 @@ private:
     std::string name;
 public:
     GameEntity(std::string name);
+    virtual std::string getName() const;
     virtual std::string getWarning() = 0;
     virtual void onEnter() = 0;
     ~GameEntity();

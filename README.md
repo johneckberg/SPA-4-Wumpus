@@ -33,7 +33,7 @@ To compile the executable, follow these steps in your terminal:
    ```
 Alternatively, you can use the build and run buttons at the top of your CLion IDE to build and exectute the program using the same CMakeLists.txt
 
-Once the build is complete, you can find the executable named `SPA-4-Wumpus` (or `SPA-4-Wumpus.exe` on Windows) inside the `build` directory.
+Once the build is complete, you can find the executable named `SPA-4-Wumpus` inside the `build` directory.
 
 ## Debug Mode
 
@@ -41,3 +41,20 @@ If you want to view the entire map and see where all the entities and hazards ar
 
 When prompted for an action during your **first** turn (e.g., North, South, East, West, Fire, etc.), simply input `M` (or `m`). 
 This will toggle the debug map on or off, displaying a 5x5 grid of the ocean and revealing the location of your ship, weapons, hazards, and the Great Whale!
+
+## Changes from Original Design
+
+### Shifted Game Orchestration in World: 
+The biggest change is the expansion of the World class. In the original design, 
+World was just a data container holding the rooms and an activity boolean. 
+However, to actually make a turn-based game loop function, World had to become a controller. 
+Methods like resolveState() and resolveFire() were introduced so World could manage interactions.
+### Room Contents Simplification: 
+The initial UML specified that each Room would hold a list (vector<GameEntity*>) of contents. 
+In the implemented architecture, this was simplified to a single GameEntity* contents pointer per room.
+I'm not sure why we thought the list was a good idea in hindsight.
+### Proper Reference Sharing via Pointers: 
+The original design relied on value types for associations (e.g., Player holding the actual Room object, and Hazards holding a World object). 
+The implemented architecture moved these to pointers (Room* currentRoom, World* game). 
+This allows all entities to reference the exact same map and central game state, which is necessary 
+for hazards to end the game.

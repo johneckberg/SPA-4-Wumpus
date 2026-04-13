@@ -1,12 +1,14 @@
 #include "GameEntity.h"
 #include "Player.h"
 
-class TreasureChest : private GameEntity {
+class TreasureChest : public GameEntity {
 private:
     bool isCollected;
     int value;
 public:
-    void onEnter(Player player);
-    virtual std::string getWarning();
-    virtual std::string describe();
+    TreasureChest(int value = 100);
+    virtual void onEnter() override;
+    void collect(Player& player);
+    virtual std::string getWarning() override;
+    virtual std::string describe() override;
 };

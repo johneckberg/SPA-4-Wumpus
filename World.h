@@ -27,6 +27,7 @@ public:
     void resolveState(class Player& player);
     void printWarnings(Room* currentRoom);
     void resolveFire(int dir, Weapon* weapon, Room* currentRoom);
+    void resolveCannonSplash(Room* target, Room* currentRoom);
 };
 
 
