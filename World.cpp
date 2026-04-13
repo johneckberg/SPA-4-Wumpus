@@ -5,6 +5,7 @@
 #include "World.h"
 #include "Hazard.h"
 #include "TreasureChest.h"
+#include "GameEntity.h"
 
 #include <ctime>
 #include <iostream>
