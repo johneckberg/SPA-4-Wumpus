@@ -250,6 +250,7 @@ void World::resolveFire(int dir, Weapon* weapon, Room* currentRoom) {
                 std::cout << "You defeated the Great Whale! You win!" << std::endl;
                 isGameActive = false;
             }
+            delete targetEntity;
             target->clearContents();
         }
     } else {
