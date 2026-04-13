@@ -1,14 +1,19 @@
 #include "TreasureChest.h"
 #include "Player.h"
 
-TreasureChest::TreasureChest(int val) : GameEntity("Treasure Chest"), isCollected(false), value(val) {
-}
+#include <ctime>
 
 void TreasureChest::onEnter() {
-    // empty, since the interface requires no arguments
+    int i = 1; //Basically just a dummy function for inheritence purposes
 }
 
-void TreasureChest::collect(Player& player) {
+TreasureChest::TreasureChest() : GameEntity("Treasure") {
+    srand(time(0));
+    value = rand() % 50;
+    isCollected = false;
+}
+
+void TreasureChest::onEnter(Player player) {
     if (!isCollected) {
         player.collectTreasure(value);
         isCollected = true;

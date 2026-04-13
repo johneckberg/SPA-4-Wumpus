@@ -32,7 +32,7 @@ void printHelp() {
     std::cout << "Clues: Faint laugh = Siren, Waves = Whale, Faint force = Whirlpool." << std::endl;
 
     std::cout << "\n    Map Legend    " << std::endl;
-    std::cout << ". = Sea room | + = Your Ship | > = Treasure Chest (Anno)" << std::endl;
+    std::cout << ". = Sea room | + = Your Ship | > = Treasure Chest (Ammo)" << std::endl;
     std::cout << "! = Siren    | @ = Whirlpool  | ? = Cannon" << std::endl;
     std::cout << "# = The Great Whale" << std::endl;
 }
