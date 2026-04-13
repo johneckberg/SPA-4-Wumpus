@@ -26,6 +26,7 @@ public:
     void addEntity(GameEntity* e);
     void describeRoom();
     GameEntity* getContents();
+    void clearContents();
     bool isOccupied();
     ~Room();
 };
