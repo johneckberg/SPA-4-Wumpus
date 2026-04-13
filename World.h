@@ -25,6 +25,8 @@ public:
     bool getDebug() const;
     void printMap(Room* currentRoom);
     void resolveState(class Player& player);
+    void printWarnings(Room* currentRoom);
+    void resolveFire(int dir, Weapon* weapon, Room* currentRoom);
 };
 
 

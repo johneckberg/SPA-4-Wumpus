@@ -181,14 +181,7 @@ void World::fillRooms() {
     }
 }
 
-void World::resolveState(Player& player) {
-    if (!isGameActive) {
-        return;
-    }
-
-    Room* currentRoom = player.getCurrentRoom();
-    
-    // print warnings for adjacent rooms
+void World::printWarnings(Room* currentRoom) {
     for (int i = 0; i < 4; i++) {
         Room* neighbor = currentRoom->getNeighbor(i);
         if (neighbor != nullptr && neighbor->isOccupied()) {
@@ -201,6 +194,17 @@ void World::resolveState(Player& player) {
             }
         }
     }
+}
+
+void World::resolveState(Player& player) {
+    if (!isGameActive) {
+        return;
+    }
+
+    Room* currentRoom = player.getCurrentRoom();
+    
+    // print warnings for adjacent rooms
+    printWarnings(currentRoom);
 
     // now describe current room
     currentRoom->describeRoom();
@@ -214,11 +218,12 @@ void World::resolveState(Player& player) {
         if (hazard) {
             hazard->triggerEffect(player);
         } else {
-            // tt might be a weapon
+            // it might be a weapon
             Weapon* w = dynamic_cast<Weapon*>(e);
             if (w) {
-                // TODO code to pick up weapon would go here
-                // should be straightforward with the add weapon function, just havent done it yet
+                player.addWeapon(w);
+                currentRoom->clearContents();
+                std::cout << "You picked up a " << w->getName() << "!" << std::endl;
             }
         }
     }
@@ -232,4 +237,26 @@ Room *World::getStartingRoom() {
 
     return rooms[room];
 
+}
+
+void World::resolveFire(int dir, Weapon* weapon, Room* currentRoom) {
+    if (!weapon || !currentRoom) return;
+
+    std::cout << "You fired your " << weapon->getName() << "!" << std::endl;
+    // logic to trace room neighbors and destroy hit targets
+    Room* target = currentRoom->getNeighbor(dir);
+    if (target && target->isOccupied()) {
+        GameEntity* targetEntity = target->getContents();
+        if (targetEntity) {
+            std::cout << "You hit " << targetEntity->describe() << "!" << std::endl;
+            if (targetEntity->describe().find("whale") != std::string::npos) {
+                std::cout << "You defeated the Great Whale! You win!" << std::endl;
+                isGameActive = false;
+            }
+            delete targetEntity;
+            target->clearContents();
+        }
+    } else {
+        std::cout << "Your shot splashed harmlessly into the water." << std::endl;
+    }
 }

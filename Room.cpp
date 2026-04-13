@@ -32,6 +32,10 @@ GameEntity* Room::getContents() {
     return contents;
 }
 
+void Room::clearContents() {
+    contents = nullptr;
+}
+
 bool Room::isOccupied() {
     if (contents == nullptr) {
         return false;

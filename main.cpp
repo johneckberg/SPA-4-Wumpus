@@ -57,19 +57,19 @@ int main() {
 
         switch (choice) {
             case 'N': player.moveRoom(0); break;
-            case 'S': player.moveRoom(1); break;
-            case 'E': player.moveRoom(2); break;
+            case 'S': player.moveRoom(2); break;
+            case 'E': player.moveRoom(1); break;
             case 'W': player.moveRoom(3); break;
             case 'F': {
                 int dir;
-                std::cout << "Fire in Direction (0=N, 1=S, 2=E, 3=W): ";
+                std::cout << "Fire in Direction (0=N, 1=E, 2=S, 3=W): ";
                 std::cin >> dir;
 
                 // using pointers to propagate fire back to world
-                // Weapon* firedWeapon = player.fireWeapon(dir);
-                // if (firedWeapon) {
-                //      world.resolveFire(dir, firedWeapon);
-                // }
+                Weapon* firedWeapon = player.fireWeapon(dir);
+                if (firedWeapon) {
+                     world.resolveFire(dir, firedWeapon, player.getCurrentRoom());
+                }
                 break;
             }
             case 'C':
