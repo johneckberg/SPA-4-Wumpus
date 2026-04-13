@@ -87,3 +87,7 @@ Weapon* Player::fireWeapon(int direction) {
         return nullptr;
     }
 }
+
+void Player::collectTreasure(int value) {
+    treasureValue += value;
+}

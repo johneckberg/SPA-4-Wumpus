@@ -21,6 +21,7 @@ public:
     Room* getCurrentRoom();
     void addWeapon(Weapon* w);
     Weapon* getActiveWeapon();
+    void collectTreasure(int value);
 
 private:
     Room* currentRoom;
@@ -28,6 +29,7 @@ private:
     std::vector<Weapon*> inventory;
     Weapon* activeWeapon;
     int activeWeaponIndex;
+    int treasureValue;
 };
 
 #endif
