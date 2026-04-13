@@ -115,4 +115,8 @@ Weapon* Player::fireWeapon(int direction) {
 
 void Player::collectTreasure(int value) {
     treasureValue += value;
+    if (activeWeapon) {
+        activeWeapon->addAmmo(3);
+        std::cout << "You found some ammo in the chest! (Ammo: " << activeWeapon->getAmmo() << ")" << std::endl;
+    }
 }

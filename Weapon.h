@@ -19,6 +19,7 @@ public:
     virtual void fire(int direction) = 0;
     int getAmmo() const;
     void decrementAmmo();
+    virtual void addAmmo(int amount) { ammo += amount; }
     virtual std::string getName() const = 0;
 
     std::string describe() override;

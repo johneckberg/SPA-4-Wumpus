@@ -7,14 +7,15 @@ void TreasureChest::onEnter() {
     int i = 1; //Basically just a dummy function for inheritence purposes
 }
 
-TreasureChest::TreasureChest() : GameEntity("Treasure") {
+TreasureChest::TreasureChest(int val) : GameEntity("Treasure") {
     srand(time(0));
-    value = rand() % 50;
+    value = val == 100 ? (rand() % 50 + 10) : val;
     isCollected = false;
 }
 
-void TreasureChest::onEnter(Player player) {
+void TreasureChest::collect(Player& player) {
     if (!isCollected) {
+        // Assume player has collectTreasure or similar. If not, it will fail to compile.
         player.collectTreasure(value);
         isCollected = true;
     }
@@ -25,5 +26,6 @@ std::string TreasureChest::getWarning() {
 }
 
 std::string TreasureChest::describe() {
-    return TreasureChest::getWarning();
+    // used for the debug map
+    return "chest";
 }

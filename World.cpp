@@ -102,15 +102,12 @@ void World::printMap(Room* currentRoom) {
                 // whirlpools
                 } else if (desc.find("whirlpool") != std::string::npos) {
                     std::cout << "@ ";
-                // ammo caches
-                } else if (desc.find("ammo") != std::string::npos) {
-                    std::cout << "> ";
                 // whale
                 } else if (desc.find("whale") != std::string::npos) {
                     std::cout << "# ";
-                // treasure chest
+                // treasure chest/ammo
                 } else if (desc.find("chest") != std::string::npos) {
-                    std::cout << "* ";
+                    std::cout << "> ";
                 //fallback just in case THIS INDICATES ERROR
                 } else {
                     std::cout << "X "; 
@@ -240,7 +237,7 @@ void World::resolveState(Player& player) {
         if (hazard) {
             hazard->triggerEffect(player);
         } else if (chest) {
-            chest->onEnter(player);
+            chest->collect(player);
         } else {
             // it might be a weapon
             Weapon* w = dynamic_cast<Weapon*>(e);
