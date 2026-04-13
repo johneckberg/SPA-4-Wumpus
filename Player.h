@@ -19,7 +19,7 @@ public:
     void swapWeapon();
     Weapon* fireWeapon(int direction);
     Room* getCurrentRoom();
-    void addWeapon(Weapon* w);
+    void addWeapon(Weapon* weapon);
     Weapon* getActiveWeapon();
 
 private:

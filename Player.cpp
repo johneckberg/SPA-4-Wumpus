@@ -19,6 +19,10 @@ Player::~Player() {
     }
 }
 
+/**
+ * This function moves the player to a new room
+ * @param direction direction in which the player will move
+ */
 void Player::moveRoom(int direction) {
     if (currentRoom == nullptr) return;
     
@@ -40,6 +44,9 @@ void Player::moveRoom(int direction) {
     std::cout << "moving direction: " << direction << std::endl;
 }
 
+/**
+ * This function swaps the players active weapon if it has both weapons
+ */
 void Player::swapWeapon() {
     if (inventory.empty()) return;
 
@@ -54,18 +61,36 @@ void Player::swapWeapon() {
     std::cout << "you readied your new weapon" << std::endl;
 }
 
+/**
+ * This function gets the room the player is in
+ * @return the room the player is currently in
+ */
 Room* Player::getCurrentRoom() {
     return currentRoom;
 }
 
-void Player::addWeapon(Weapon* w) {
-    inventory.push_back(w);
+/**
+ * This function adds a weapon to the players inventory
+ * @param weapon weapon pointer
+ */
+void Player::addWeapon(Weapon* weapon) {
+    inventory.push_back(weapon);
 }
 
+/**
+ * This function returns the players currently active weapon
+ * @return pointer to active weapon
+ */
 Weapon* Player::getActiveWeapon() {
     return activeWeapon;
 }
 
+/**
+ * This function is called to fire the players current active weapon
+ * @param direction the direction of fire
+ * /
+ * @return A weapon instance to propogate the fire to the world object based on its properties
+ */
 Weapon* Player::fireWeapon(int direction) {
     // safety check ensuring a weapon is actually equipped
     if (activeWeapon == nullptr) {
