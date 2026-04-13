@@ -4,7 +4,7 @@ Whirlpool::Whirlpool(World* game) : Hazard(true, "Whirlpool") {
     this->game = game;
 }
 
-void Whirlpool::triggerEffect(Player player) {
+void Whirlpool::triggerEffect(Player& player) {
     endGame();
 }
 

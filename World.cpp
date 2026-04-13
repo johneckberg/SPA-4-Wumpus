@@ -132,6 +132,8 @@ void World::fillRooms() {
 
     srand(time(NULL));
 
+    bool whaleSpawned = false;
+
     for (Room* r : rooms) {
 
         //check if it is the starting room
@@ -142,18 +144,79 @@ void World::fillRooms() {
             if (chance < 20) {
                 //add hazard (?) 20%
                 int hazardType = rand() % 3;
+
+                // force only one whale to be spawned
+                if (hazardType == 2 && whaleSpawned) {
+                    hazardType = rand() % 2; // if whale already spawned, make it a siren or whirlpool instead? idk
+                }
+
                 if (hazardType == 0) {
                     r->addEntity(new Siren());
                 } else if (hazardType == 1) {
                     r->addEntity(new Whirlpool(this));
                 } else {
                     r->addEntity(new Whale(this));
+                    whaleSpawned = true;
                 }
             } else if (chance < 40) {
                 //20%
                 r -> addEntity(new Cannon); //add cannon to room tile
             }
             //60% it will be empty
+        }
+    }
+
+    // fallback in case the 20% chance roll and the 1/3 inner roll NEVER triggered a whale
+    if (!whaleSpawned) {
+        // just find the first empty room and put the whale there
+        for (Room* r: rooms) {
+            if (!r->getRoomType() && !r->isOccupied()) {
+                r->addEntity(new Whale(this));
+                break;
+            }
+        }
+    }
+}
+
+void World::resolveState(Player& player) {
+    if (!isGameActive) {
+        return;
+    }
+
+    Room* currentRoom = player.getCurrentRoom();
+    
+    // print warnings for adjacent rooms
+    for (int i = 0; i < 4; i++) {
+        Room* neighbor = currentRoom->getNeighbor(i);
+        if (neighbor != nullptr && neighbor->isOccupied()) {
+            GameEntity* entity = neighbor->getContents();
+            if (entity != nullptr) {
+                std::string warning = entity->getWarning();
+                if (!warning.empty()) {
+                    std::cout << warning << std::endl;
+                }
+            }
+        }
+    }
+
+    // now describe current room
+    currentRoom->describeRoom();
+
+    // check if player moved onto a hazard/entity
+    // use dynamic cast to check runtime type (not sure if theres a better way to do this?)
+    if (currentRoom->isOccupied()) {
+        GameEntity* e = currentRoom->getContents();
+        Hazard* hazard = dynamic_cast<Hazard*>(e); // see if its a hazard
+
+        if (hazard) {
+            hazard->triggerEffect(player);
+        } else {
+            // tt might be a weapon
+            Weapon* w = dynamic_cast<Weapon*>(e);
+            if (w) {
+                // TODO code to pick up weapon would go here
+                // should be straightforward with the add weapon function, just havent done it yet
+            }
         }
     }
 }

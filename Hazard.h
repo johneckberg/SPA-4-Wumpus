@@ -9,7 +9,7 @@ private:
     int isDeadly;
 public:
     Hazard(int isDeadly, std::string name);
-    virtual void triggerEffect(Player player) = 0;
+    virtual void triggerEffect(Player& player) = 0;
     virtual std::string getWarning() = 0;
 };
 
@@ -18,9 +18,9 @@ private:
     int flightDistance;
 public:
     Siren();
-    virtual void triggerEffect(Player player);
+    virtual void triggerEffect(Player& player);
     virtual std::string getWarning();
-    void movePlayer(Player player);
+    void movePlayer(Player& player);
     std::string describe() override;
     void onEnter() override;
 };
@@ -30,7 +30,7 @@ private:
     World* game;
 public:
     Whirlpool(World* game);
-    virtual void triggerEffect(Player player);
+    virtual void triggerEffect(Player& player);
     virtual std::string getWarning();
     void endGame();
     std::string describe() override;
@@ -43,7 +43,7 @@ private:
     World* game;
 public:
     Whale(World* game);
-    virtual void triggerEffect(Player player);
+    virtual void triggerEffect(Player& player);
     virtual std::string getWarning();
     void killPlayer();
     std::string describe() override;

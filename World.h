@@ -24,6 +24,7 @@ public:
     void toggleDebug();
     bool getDebug() const;
     void printMap(Room* currentRoom);
+    void resolveState(class Player& player);
 };
 
 

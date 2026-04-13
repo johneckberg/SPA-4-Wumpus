@@ -9,13 +9,13 @@ Siren::Siren() : Hazard(false, "siren") {
     this->flightDistance = rand() % 3 + 3; // Get a random number between 2 and 5
 }
 
-void Siren::triggerEffect(Player player) {
+void Siren::triggerEffect(Player& player) {
     movePlayer(player);
 }
 
-void Siren::movePlayer(Player player) {
+void Siren::movePlayer(Player& player) {
     for (int i = 0; i < flightDistance; i++) {
-        player.moveRoom(rand() % 5); //move player in random direction
+        player.moveRoom(rand() % 4); //move player in random direction (0-3)
     }
 }
 

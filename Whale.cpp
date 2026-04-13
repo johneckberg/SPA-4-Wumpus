@@ -8,7 +8,7 @@ Whale::Whale(World* game) : Hazard(true, "Moby Dick") {
     this->isAwake = false;
 }
 
-void Whale::triggerEffect(Player player) {
+void Whale::triggerEffect(Player& player) {
     killPlayer();
 }
 

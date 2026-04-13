@@ -104,7 +104,7 @@ int main() {
             world.printMap(player.getCurrentRoom());
         }
 
-        // world.resolveState(player);
+        world.resolveState(player);
     }
 
     return 0;
