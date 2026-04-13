@@ -4,6 +4,7 @@
 
 #include "World.h"
 #include "Hazard.h"
+#include "TreasureChest.h"
 
 #include <ctime>
 #include <iostream>
@@ -142,19 +143,21 @@ void World::fillRooms() {
             int chance = rand() % 100;
 
             if (chance < 20) {
-                //add hazard (?) 20%
-                int hazardType = rand() % 3;
+                //add hazard or treasure chest (?) 20%
+                int hazardType = rand() % 4;
 
                 // force only one whale to be spawned
                 if (hazardType == 2 && whaleSpawned) {
-                    hazardType = rand() % 2; // if whale already spawned, make it a siren or whirlpool instead? idk
+                    hazardType = rand() % 3; // if whale already spawned, make it a siren or whirlpool instead? idk
                 }
 
                 if (hazardType == 0) {
                     r->addEntity(new Siren());
                 } else if (hazardType == 1) {
                     r->addEntity(new Whirlpool(this));
-                } else {
+                } else if (hazardType == 2) {
+                    r->addEntity(new TreasureChest());
+                }else {
                     r->addEntity(new Whale(this));
                     whaleSpawned = true;
                 }
