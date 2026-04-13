@@ -130,7 +130,7 @@ void World::fillRooms() {
     //randomly fills the rooms with items
     //or makes it so the rooms are empty
 
-    srand(time(NULL));
+    srand(time(0));
 
     bool whaleSpawned = false;
 
