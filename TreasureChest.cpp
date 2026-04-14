@@ -4,7 +4,7 @@
 #include <ctime>
 
 void TreasureChest::onEnter() {
-    int i = 1; //Basically just a dummy function for inheritence purposes
+    int i = 1; //Basically just a dummy function for inheritance purposes
 }
 
 TreasureChest::TreasureChest(int val) : GameEntity("Treasure") {
@@ -14,8 +14,8 @@ TreasureChest::TreasureChest(int val) : GameEntity("Treasure") {
 }
 
 void TreasureChest::collect(Player& player) {
+    // check if collected, then call players method
     if (!isCollected) {
-        // Assume player has collectTreasure or similar. If not, it will fail to compile.
         player.collectTreasure(value);
         isCollected = true;
     }
@@ -27,5 +27,5 @@ std::string TreasureChest::getWarning() {
 
 std::string TreasureChest::describe() {
     // used for the debug map
-    return "chest";
+    return "A wooden chest bobs gently on the waves, its rusted lock broken open.";
 }

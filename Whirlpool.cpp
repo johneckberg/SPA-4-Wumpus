@@ -17,9 +17,9 @@ void Whirlpool::endGame() {
 }
 
 std::string Whirlpool::describe() {
-    return "whirlpool";
+    return "The ocean churns, forming a whirlpool that threatens to drag you down to Davy Jones' locker!";
 }
 
 void Whirlpool::onEnter() {
-    // DO nothing
+    // Do nothing
 }

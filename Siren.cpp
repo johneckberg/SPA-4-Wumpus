@@ -24,7 +24,7 @@ std::string Siren::getWarning() {
 }
 
 std::string Siren::describe() {
-    return "siren";
+    return "A captivating siren rests on a rock, weaving a hypnotic melody that clouds your mind...";
 }
 
 void Siren::onEnter() {

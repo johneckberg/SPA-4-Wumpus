@@ -265,7 +265,7 @@ Room* World::getStartingRoom() {
 }
 
 /**
- * This functioj handles the game logic required when the player/user fires their weapon
+ * This function handles the game logic required when the player/user fires their weapon
  * @param dir Direction of fire
  * @param weapon Weapon that was fired
  * @param currentRoom room the user is firing from

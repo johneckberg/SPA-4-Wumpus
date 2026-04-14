@@ -79,5 +79,5 @@ std::string Cannon::getName() const {
  * @return a string describing the weapon for pick-up
  */
 std::string Weapon::describe() {
-    return "There's something floating in the water here!";
+    return "You spot a floating crate of heavy naval equipment drifting in the seafoam.";
 }

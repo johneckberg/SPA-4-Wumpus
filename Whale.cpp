@@ -22,7 +22,7 @@ std::string Whale::getWarning() {
 }
 
 std::string Whale::describe() {
-    return "whale";
+    return "A white whale breaches the surface, its scarred body towering over your tiny ship!";
 }
 
 void Whale::onEnter() {
